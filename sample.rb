@@ -80,20 +80,149 @@
 # a = 'abc'.freeze
 # a.upcase!
 
-a = 'abcde'
-#　3文字目を取得する
-p a[2]
-# 2文字目から3文字取得する
-p a[1, 3]
-# 最初の文字を取得する
-p a[-1]
+# a = 'abcde'
+# #　3文字目を取得する
+# p a[2]
+# # 2文字目から3文字取得する
+# p a[1, 3]
+# # 最初の文字を取得する
+# p a[-1]
+#
+# # 一文字目をXに置き換える
+# a[0] = 'X'
+# p a
+# # 2文字目から3文字分をYにする
+# a[1, 3] = 'Y'
+# p a
+# # 末尾に"PRG"を連結する
+# a << "PRG"
+# p a
 
-# 一文字目をXに置き換える
-a[0] = 'X'
-p a
-# 2文字目から3文字分をYにする
-a[1, 3] = 'Y'
-p a
-# 末尾に"PRG"を連結する
-a << "PRG"
-p a
+# 入れ子になった配列
+# records = [
+#   [2021],
+#   [2019, 5],
+#   [2017, 11, 25]
+# ]
+#
+# require 'date'
+#
+# changed_to_date = records.map do |record|
+#   case record.length
+#   when 1
+#     # 配列で指定された年の1月1日を返す(2021年1月1日)
+#     y = record[0]
+#     Date.new(y, 1, 1)
+#   when 2
+#     # 配列で指定された年と月の1日を返す(2019年5月1日)
+#     y, m = record[0], record[1]
+#     Date.new(y, m, 1)
+#   when 3
+#     #年と月と日を指定(2017年11月25日)
+#     y, m, d = record[0], record[1], record[2]
+#     Date.new(y, m, d)
+#   end
+# end
+#
+# pp changed_to_date
+
+# records = [
+#   [2021],
+#   [2019, 5],
+#   [2017, 11, 25]
+# ]
+#
+# require 'date'
+#
+# changed_to_date_list = records.map do |record|
+#   case record
+#   in [y]
+#     Date.new(y, 1, 1)
+#   in [y, m]
+#     Date.new(y, m, 1)
+#   in [y, m, d]
+#     Date.new(y, m, d)
+#   end
+# end
+#
+# pp changed_to_date_list
+
+# cars = [
+#   # psとは馬力のこと
+#   { name: 'The Beatle', engine: '105ps' },
+#   # エンジンは燃料を燃やして動力を発生させる。モーターは電力によって動力を得る。
+#   { name: 'Prius', engine: '98ps', motor: '72ps' },
+#   { name: 'Tesla', motor: '306ps' }
+# ]
+
+# cars.each do |car|
+#   if car.has_key?(:engine) && car.has_key?(:motor)
+#     puts "Hybrid: #{car[:name]} / engine: #{car[:engine]} / motor: #{car[:motor]}"
+#   elsif car.has_key?(:engine)
+#     puts "Gasoline: #{car[:name]} / engine: #{car[:engine]}"
+#   elsif car.has_key?(:motor)
+#     puts "EV: #{car[:name]} / motor: #{car[:motor]}"
+#   end
+# end
+
+# cars = [
+#   # psとは馬力のこと
+#   { name: 'The Beatle', engine: '105ps' },
+#   # エンジンは燃料を燃やして動力を発生させる。モーターは電力によって動力を得る。
+#   { name: 'Prius', engine: '98ps', motor: '72ps' },
+#   { name: 'Tesla', motor: '306ps' }
+# ]
+#
+# cars.each do |car|
+#   case car
+#   in { name:, engine:, motor: }
+#     puts "Hybrid: #{name} / engine: #{engine} / motor: #{motor}"
+#   in { name:, engine: }
+#     puts "Gasoline: #{name} / engine: #{engine}"
+#   in { name:, motor: }
+#     puts "EV: #{name} / motor: #{motor}"
+#   end
+# end
+
+# country = 'india'
+#
+# greeting =
+#   case country
+#   in 'japan'
+#     'こんにちは'
+#   in 'us'
+#     'Hello'
+#   in 'italy' then 'Ciao'
+#   #valiableパターンを用いて任意のオブジェクトをマッチさせる(実質的else節)
+#   in obj
+#     "Unknown #{obj}"
+#   end
+#
+# pp greeting
+
+# in節でクラス名を書く
+
+# value = 123
+#
+# case value
+# in Integer
+#   puts '整数です'
+# in String
+#   puts '文字列です'
+# end
+#
+# age = 18
+# case age
+# in 0...18
+#   puts '未成年です'
+# in 18...122
+#   puts '成人しています'
+# else
+#   puts 'ギネスを超えています'
+# end
+#
+
+case [10, 20]
+　in obj
+"obj= #{obj}"
+end
