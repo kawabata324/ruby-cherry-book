@@ -222,7 +222,102 @@
 # end
 #
 
-case [10, 20]
-　in obj
-"obj= #{obj}"
+# case [1, 2, 3]
+# in obj
+#   puts "obj: #{obj}"
+# end
+
+# case [1, 2, 3]
+# in [fi, se, th]
+#   puts "要素は #{fi} #{se} #{th}"
+# end
+
+# alice = 'Alice'
+# bob = 'Bob'
+#
+# name = 'Bob'
+#
+# case name
+# in ^alice
+#   puts 'Aliceさん、こんにちは!'
+# in ^bob
+#   puts 'Bobさん、こんにちは!'
+# end
+
+# slot_results = [
+#   [7, 7, 7],
+#   [5, 7, 7],
+#   [1, 1, 1],
+#   [3, 3, 1]
+# ]
+#
+# slot_results.each do |slot|
+#   case slot
+#     # 要素数が3つかつ3つとも同じ値であればマッチする
+#   in [n, ^n, ^n]
+#     puts "当たり"
+#   else
+#     puts "ハズレ"
+#   end
+# end
+
+# records = [
+#   [Integer, 1, 2],
+#   [Integer, 3, 'X']
+# ]
+#
+# records.each do |record|
+#   case record
+#   in [klass, ^klass, ^klass]
+#     puts "配列の要素は全て#{klass}"
+#   else
+#     puts "配列の要素は全て整数オブジェクトではない"
+#   end
+# end
+
+# @n = 1
+# case 1
+# in ^@n
+#   '1です'
+# end
+
+# @s = '1'
+#
+# case 1
+# in ^(@s.to_i)
+#   '1です'
+# end
+
+# case [1, [2, 3]]
+# in [fi, [se, th]]
+#   puts "#{fi} #{se} #{th}"
+# end
+#
+# case [1, [2, 3]]
+# in [a, b]
+#   puts "#{a} #{b}"
+# end
+
+# case [7, 7, 7]
+# in [7, 7, 7]
+#   puts '大当たり'
+# in [n, ^n, ^n]
+#   puts '当たり'
+# else
+#   puts 'ハズレ'
+# end
+
+# case ['Alice', 2132, 3]
+# in [_n, _n, n]
+#   puts "n= #{n}"
+# end
+
+# case [1, 2, 3, 34, 4, 4343, 5, 35, 10]
+# in [1, *rest, 10]
+#   puts "#{rest}"
+# end
+
+case [1, 2, 3]
+in a, b, c
+  puts "#{a}#{b}#{c}"
 end
