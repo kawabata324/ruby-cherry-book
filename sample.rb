@@ -428,6 +428,47 @@
 # hash.upcase!
 # puts hash
 
-# シンボルをハッシュのキーとして利用する（キーが文字列の時よりも高速)
+# # シンボルをハッシュのキーとして利用する（キーが文字列の時よりも高速)
+#
+# hash_s = { :x => 1, :y => 2 }
+#
+# #呼び出し方
+#
+# puts hash_s[:x]
+#
+# # => を使わずにキーをハッシュにする
+#
+# hash_sy = { x: 1, y: 2 }
+# puts hash_sy[:x]
 
-const hash_s = {}
+# # キーにハッシュと文字列を混在させる（良いコードではない)
+# hash = { x: 1, "y" => 2 }
+#
+# puts hash[:x]
+# puts hash["y"]
+
+# person = {
+#   name: 'Alice',
+#   age: 20,
+#   friends: ['Bob', 'Camel'],
+#   phone: { home: '1234-0000', mobile: '5678-0000' }
+# }
+#
+# puts person[:friends][0]
+# puts person[:phone][:home]
+
+# def buy_fast_foods(burger: 'hamburger', drink: true, potato:)
+#   # ハンバーガを購入
+#   if drink
+#     # drinkを購入
+#   end
+#   if potato
+#     # potatoを購入
+#   end
+# end
+#
+# # チーズバーガーとドリンクとポテトを注文
+# buy_fast_foods(burger: 'cheese', drink: true, potato: true)
+#
+# # フィッシュバーガーとドリンクを注文
+# buy_fast_foods(burger: 'fish', potato: false)
