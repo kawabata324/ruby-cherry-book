@@ -317,7 +317,117 @@
 #   puts "#{rest}"
 # end
 
-case [1, 2, 3]
-in a, b, c
-  puts "#{a}#{b}#{c}"
-end
+# case [1, 2, 3]
+# in a, b, c
+#   puts "#{a}#{b}#{c}"
+# end
+
+# case { name: "Alice", age: 20, gender: "man" }
+# in { age:, name: }
+#   puts "名前は#{name}で年は#{age}です"
+# end
+
+# case { type: "大魔道士", level: 200 }
+# in { type: "大魔道士" | "勇者", level: 100.. }
+#   puts "あなたはこのダンジョンに挑戦する資格があります"
+# end
+
+# case { income: 500, children: ["Bob", "Alice", "Megu"] }
+# in { income: 467.., children: [child1, child2, *] }
+#   puts "あなたの家庭は給付金をあげます"
+# end
+
+# case { a: 1 }
+# in {}
+#   puts "からです"
+# in { a: }
+#   puts "#{a}"
+# end
+
+# case { a: 1, b: 2, c: 3 }
+# in { a:, b:, **rest }
+#   puts "残りは#{rest}です"
+# end
+
+# case { name: "Bob", age: 18 }
+# in { name:, ** nil }
+#   puts "年齢わからん"
+# in { name:, age: }
+#   puts "年齢わかる"
+# end
+
+# age = 18
+#
+# case age
+# in 0...18 => age
+#   puts "未成年です#{age}"
+# in 18...122
+#   puts "成人しています#{age}"
+# else
+#   puts "ギネスを超えています#{age}"
+# end
+
+# a = { "JP" => "dollar", "JP" => "yen" }
+#
+# pp a["JP"]
+
+# 値を上書き
+# currencies["JP"] = "円"
+# pp currencies
+#
+# # 値を新たに追加
+# currencies["Italy"] = "Euro"
+# pp currencies
+
+# 値の取得　存在しないキーを選んだ場合はnilを返す
+
+# pp currencies["US"]
+# pp currencies["Unknown"]
+
+# currencies.each do |key, value|
+#   pp "ブロック引数の最初はkey:#{key}で 第二引数にはvalue:#{value}が入ります"
+# end
+
+# currencies.each do |h_array|
+#   puts "引数を一つしか指定しない場合はキーとvalueが入った配列を返します 例: #{h_array}"
+# end
+
+# a = { "x" => 1, "y " => 2 }
+# b = { "y " => 2, "x" => 1 }
+#
+# pp a === b
+
+# puts currencies.length
+# puts currencies.size
+#
+# currencies = { "JP" => "yen", "US" => "dollar" }
+#
+# # puts currencies.delete("US")
+# #
+# # puts currencies
+#
+#
+# pp currencies.delete("UA") {|val| "unknown#{val}"}
+
+# puts "Apple".class
+# puts :Apple.class
+
+# puts :Apple.object_id
+# puts :Apple.object_id
+# puts :Apple.object_id
+# puts "Apple".object_id
+# puts "Apple".object_id
+# puts "Apple".object_id
+
+# str = "apple"
+# str.upcase!
+# puts str
+#
+#
+# hash = :apple
+# hash.upcase!
+# puts hash
+
+# シンボルをハッシュのキーとして利用する（キーが文字列の時よりも高速)
+
+const hash_s = {}
