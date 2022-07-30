@@ -574,28 +574,28 @@
 # 名前の配列を渡すとUserクラスのインスタンスを配列に入れて返す create_usersメソッド
 #
 
-class User
-  def initialize(name)
-    @name = name
-  end
-
-  def self.create_users(names)
-    names.map do |name|
-      User.new(name)
-    end
-  end
-
-  def hello
-    puts "Hello, I am #{@name}"
-  end
-end
-
-names = %w[Alice Bob Carol]
-users = User.create_users(names)
-
-users.each do |user|
-  user.hello
-end
+# class User
+#   def initialize(name)
+#     @name = name
+#   end
+#
+#   def self.create_users(names)
+#     names.map do |name|
+#       User.new(name)
+#     end
+#   end
+#
+#   def hello
+#     puts "Hello, I am #{@name}"
+#   end
+# end
+#
+# names = %w[Alice Bob Carol]
+# users = User.create_users(names)
+#
+# users.each do |user|
+#   user.hello
+# end
 
 # ところでこの項ではUser.crate_usersのようなメソッドをクラスメソッドと呼びましたが、このような
 # メソッドは厳密にいうとクラスオブジェクトの特異メソッドを定義していることになります。
@@ -607,4 +607,55 @@ end
 # クラスメソッドを表す場合にクラス名.メソッド名　または　クラス名::メソッド名と書きます
 #
 #
+# 7.3.5 定数
+#
+# クラスの中には定数を定義することもできます。
+#
+# class Product
+#   # デフォルトの価格を定数として定義する
+#   DEFAULT_PRICE = 0
+#
+#   attr_reader :name, :price
+#
+#   # 第二引数のデフォルト値を定数にする
+#   def initialize(name, price = DEFAULT_PRICE)
+#     ＠name = name
+#     @price = price
+#   end
+# end
+#
+# product = Product.new('A free movie')
+# puts product.price
+
+#　定数は必ず大文字で始める必要があります。慣習的にアルファベットの大文字と数字、それにアンダースコアで構成されることが多いです
+#
+# 定数はインスタントメソッドないでもクラスメソッドないでも参照可能です
+
+class Product
+  # デフォルトの価格を定数として定義する
+  DEFAULT_PRICE = 0
+
+  attr_reader :name, :price
+
+  # 第二引数のデフォルト値を定数にする
+  def initialize(name, price = DEFAULT_PRICE)
+    ＠name = name
+    @price = price
+  end
+
+  def self.default_price
+    puts DEFAULT_PRICE
+  end
+
+  def default_price
+    puts DEFAULT_PRICE
+  end
+end
+
+Product.default_price
+
+free_item = Product.new('free_item')
+free_item.default_price
+
+# 7.4 例題　改札機プログラムの作成
 #
