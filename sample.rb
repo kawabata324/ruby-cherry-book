@@ -472,3 +472,27 @@
 #
 # # フィッシュバーガーとドリンクを注文
 # buy_fast_foods(burger: 'fish', potato: false)
+#
+
+# 仕様
+# メートル(m),フィート(ft),インチ(in)の単位を相互に変換する。
+# 第一引数に変換元の長さ（数値）、第二引数に変換元の単位、第三引数に変換後の単位を指定する。
+# メソッドの戻り値は変換後の長さ（数値）とする。端数が出る場合は小数第三位で四捨五入する。
+
+# ハッシュで使用頻度の高いメソッド
+
+# keys
+
+# pp currencies.keys
+
+# pp currencies.values
+
+# pp currencies.has_key?(:japan)
+# pp currencies.key?(:japan)
+# pp currencies.include?(:japan)
+# pp currencies.member?(:japan)
+
+# currencies = { japan: 'yen', us: 'dollar', india: 'rupee' }
+# # puts currencies = { uk: 'euro',**currencies }
+#
+# puts currencies = { uk: 'euro' }.merge(currencies)
