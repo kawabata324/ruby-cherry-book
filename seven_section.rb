@@ -233,23 +233,378 @@
 # オブジェクトの状態（オブジェクト内の各データ）は外部から取得したり変更したりできる場合があります
 # 例えば以下のコードではuserのネームを外部から取得したり変更したりしています
 
-class User
-  attr_accessor :first_name
-
-  def initialize(first_name)
-    @first_name = first_name
-  end
-end
-
-user = User.new('Alice')
-
-pp user.first_name
-# first_nameを変更する
-user.first_name = 'ありす'
-pp user.first_name
+# class User
+#   attr_accessor :first_name
+#
+#   def initialize(first_name)
+#     @first_name = first_name
+#   end
+# end
+#
+# user = User.new('Alice')
+#
+# pp user.first_name
+# # first_nameを変更する
+# user.first_name = 'ありす'
+# pp user.first_name
 
 # このようにオブジェクトから取得（もしくはオブジェクトに設定）できる値のことを属性（もしくはアトリビュートやプロパティ）と呼びます
 # 多くの場合、属性の名前は名詞になっています
+#
+#
+# 7.3 クラスの定義
+#
+# Rubyのクラスを定義する場合は次のような構文を使います
+# class クラスめい
+# end
+#
+# クラス名は必ず大文字ではじめます。小文字で始めると構文エラーになります。慣習としてキャメルケースで書くのが一般的です
+#
+# 7.3.1 オブジェクトの作成とinitializeメソッド
+# クラスからオブジェクトを作成する場合は以下のようにnewメソッドを使います
+# User.new
+
+# この時に呼ばれるのがinitializeメソッドです。インスタンスを初期化するために実行したい処理があればこのinitializeメソッドに処理を実装します
+# 特に必要なければ実装する必要はありません
+# 他のプログラミング経験者であればコンストラクタのようなものだと考えるとわかりやすいです
+# 次のようにするとnewメソッドを呼び出した時にinitializeメソッドが呼ばれていることがわかります
+
+# class User
+#
+#   def initialize
+#     puts 'Initialized'
+#   end
+# end
+#
+#
+# User.new
+# # initializeメソッドは特需なメソッドでデフォルトでprivateメソッドになっているため外部から呼び出すことはできません
+# user = User.new
+# user.initialize
+#
+#
+# initializeメソッドに引数をつけるとnewで呼び出す時も必要になる
+
+# class User
+#
+#   def initialize(name, age)
+#     puts "name: #{name} age: #{age}"
+#   end
+# end
+#
+# # User.new
+# User.new('Alice', 20)
+
+# 7.3.2　インスタンスメソッドの定義
+# クラス内部でメソッドを定義するとそのメソッドはインスタンスメソッドとなります
+# インスタンスメソッドとはその名の通りそのクラスのインスタンスに対して呼び出すことができるメソッド
+
+# class User
+#   def hello
+#     "Hello"
+#   end
+# end
+#
+# user = User.new
+# pp user.hello
+
+# 7.3.3 インスタンス変数とアクセサメソッド
+# クラスの内部ではインスタンス変数を使うことができます
+# インスタンス変数とは同じインスタンス　同じオブジェクトの内部で共有される変数
+# Rubyでは@から始まる変数がインスタンス変数です。
+
+# class User
+#   def initialize(name)
+#     @name = name
+#   end
+#
+#   def hello
+#     "Hello, I am #{@name}"
+#   end
+# end
+#
+# user = User.new('Alice')
+# puts user.hello
+
+# @、＠＠や$といったプレフィックス（接頭辞）がつかない変数はローカル変数となります。
+# ちなみに、＠＠はクラス変数の$はグローバル変数のプレフィックス　
+# アルファベットの大文字で始まる識別子は定数と見做される
+# メソッドやブロックの内部で宣言されたローカル変数のスコープはその変数が宣言された位置から自分の宣言されたメソッドまたはブロックの終わりまで
+# メソッドやブロックが繰り返し呼ばれるとその都度ローカル変数が作られます
+#
+
+# class User
+#   def initialize(name)
+#     @name = name
+#   end
+#
+#   def hello
+#     # shuffled_name はローカル変数
+#     shuffled_name = @name.chars.shuffle.join
+#     puts "Hello I am #{shuffled_name}"
+#   end
+# end
+#
+# user = User.new('Alice')
+# user.hello
+
+# ローカル変数は参照する前に必ず=で値を代入して作成する必要がある。
+# まだ作成されていないローカル変数を参照しようとするとエラーになる
+
+# class User
+#   def initialize(name)
+#     @name = name
+#   end
+#
+#   def hello
+#     # shuffled_name はローカル変数
+#     #　わざとローカル変数への代入をコメントアウト
+#     # shuffled_name = @name.chars.shuffle.join
+#     puts "Hello I am #{shuffled_name}"
+#   end
+# end
+#
+# user = User.new('Alice')
+# # Error
+# user.hello
+#
+#
+# 一方でインスタンス変数は作成（値を代入）する前にいきなり参照してもエラーにならない
+# nilが返る
+# class User
+#   def initialize(name)
+#     # わざとインスタンス変数をコメントアウトする
+#     # @name = name
+#   end
+#
+#   def hello
+#     # インスタンス変数を参照する
+#     p "Hello I am #{@name}"
+#   end
+# end
+#
+# user = User.new('Alice')
+# user.hello
+
+# インスタンス変数をタイプミスすると思いがけない不具合につながる
+
+# class User
+#   def initialize(name)
+#     @name = name
+#   end
+#
+#   def hello
+#     puts "Hello I am #{@mane}"
+#   end
+# end
+#
+#
+# user = User.new('Alice')
+# user.hello
+
+# インスタンス変数をクラスの外部から参照するできません。もし、参照したい場合は参照用のメソッドを作る必要があります
+#
+
+# class User
+#   def initialize(name)
+#     @name = name
+#   end
+#
+#   # @nameを外部から参照するためのメソッド
+#   def name
+#     @name
+#   end
+# end
+#
+# user = User.new('Alice')
+# # nameメソッドを経由して@nameの内容を取得する
+# puts user.name
+
+# インスタンス変数の内容を外部から変更したい場合も変更用のメソッドを定義します
+# 他の言語経験者は驚くかもしれませんが、Rubyは=で終わるメソッドで定義すると、変数に代入するような方式でそのメソッドを呼び出すことができます
+#
+
+# class User
+#   def initialize(name)
+#     @name = name
+#   end
+#
+#   # @nameを外部から参照するためのメソッド
+#   def name
+#     @name
+#   end
+#
+#   # @nameを外部から変更するためのメソッド
+#   def name=(value)
+#     @name = value
+#   end
+# end
+#
+# user = User.new('Alice')
+# # 変数に代入しているように見えるが実際にはname=メソッドを呼び出している
+# user.name = 'Bob'
+# puts user.name
+
+# nameメソッドのように値を読みだすメソッドのことを[getterメソッド]
+# name=メソッドのように値を書き込むメソッドのことを[setterメソッド]
+# 他の言語ではget_ set_といった接頭辞がつくことがありますがRubyでは稀です
+# また、ゲッターメソッドとセッターメソッドを総称してアクセサメソッドと呼びます
+#
+# Rubyの場合、単純にインスタンス変数の内容を外部から書き込みするのであれば attr_accessorというメソッド
+# を使って退屈なアクセスメソッドの定義を省略できる
+
+# class User
+#   attr_accessor :name
+#   def initialize(name)
+#     @name = name
+#   end
+# end
+#
+# user = User.new('Alice')
+# # 変数に代入しているように見えるが実際にはname=メソッドを呼び出している
+# user.name = 'Bob'
+# puts user.name
+#
+# インスタンスを読み取り専用にするにはattr_accessorの代わりにattr_readerメソッドを使います
+
+# class User
+#   #　読み取り戦勝のメソッドを定義する
+#   attr_reader :name
+#
+#   def initialize(name)
+#     @name = name
+#   end
+# end
+#
+# user = User.new('Alice')
+# # @nameの参照はできる
+# puts user.name
+# # @nameを書き換えようとするとエラ-
+# user.name = 'Bob'
+
+# 逆に書き込み専用にするにはattr_writerを使う
+
+# class User
+#   attr_writer :name
+#   def initialize(name)
+#     @name = name
+#   end
+# end
+#
+# user = User.new('Alice')
+# # 変数に代入しているように見えるが実際にはname=メソッドを呼び出している
+# user.name = 'Bob'
+# # @nameの参照はできない
+# puts user.name
+#
+#
+# カンマを使って複数のインスタンス変数に対するアクセサリメソッドを定義する
+
+# class User
+#   attr_accessor :name, :age
+#   def initialize(name, age)
+#     @name = name
+#     @age = age
+#   end
+# end
+#
+# user = User.new('Alice',20)
+# # 変数に代入しているように見えるが実際にはname=メソッドを呼び出している
+# puts user.name
+# user.age = 30
+#
+#
+# 7.3.4 クラスメソッドの定義
+#
+# インスタンスメソッドの定義の項で説明した通り、クラス構文の内部で単純にメソッドを定義すると
+# そのメソッドはインスタンスメソッドになります。インスタンスメソッドはそのクラスのインスタンスに対して呼び出すことのできるメソッド
+# インスタンスに不l組まれるデータを読み書きする場合はインスタンスメソッドを定義します
+#
+#
+# class User
+#   def initialize(name)
+#     @name = name
+#   end
+#
+#   #インスタンスメソッド
+#   def hello
+#     # @nameの値はインスタンスによって異なる
+#     puts "Hello, I am #{@name}"
+#   end
+# end
+#
+# alice = User.new('Alice')
+# # インスタンスメソッドはインスタンス（オブジェクト）に対して呼び出す
+# alice.hello
+#
+# bob = User.new('Bob')
+# # インスタンスによって内部のデータが異なるので、helloメソッドの結果も異なる
+# bob.hello
+
+# 一方そのクラスに関連の深いものの、一つ一つのインスタンスに含まれるデータは使わないメソッドを定義したい場合もあります
+# そのような場合はクラスメソッドを定義した方が使い勝手がよくなります
+# クラスメソッドを定義する方法の一つは以下のようにメソッドの前にself.をつけることです
+
+# クラスメソッドを定義するその１
+# class クラス名
+#  def self.クラスメソッド
+#  # クラスメソッドの処理
+#  end
+# end
+#
+# もう一つは次のようにclass << self　から endの間にメソッドを書く方法
+#
+# クラスメソッドを定義するその２
+# class クラス名
+#  class << self
+#   def クラスメソッド
+#   #　クラスメソッドの処理
+#   end
+#  end
+# end
+#
+#
+#
+# 後者の方法は入れ子が１段階深くなりますが、その代わりにクラスメソッドをたくさん定義したい場合はメソッドの名の
+# 前に毎回self.をつけなくてもすみます。取りたでも構わない。本書では前者を主に使う
+#
+# クラスメソッドを呼び出す場合は以下のようにクラス名の直後にドットをつけてメソッドを呼び出します
+# クラス名.メソッド名
+#
+# 名前の配列を渡すとUserクラスのインスタンスを配列に入れて返す create_usersメソッド
+#
+
+class User
+  def initialize(name)
+    @name = name
+  end
+
+  def self.create_users(names)
+    names.map do |name|
+      User.new(name)
+    end
+  end
+
+  def hello
+    puts "Hello, I am #{@name}"
+  end
+end
+
+names = %w[Alice Bob Carol]
+users = User.create_users(names)
+
+users.each do |user|
+  user.hello
+end
+
+# ところでこの項ではUser.crate_usersのようなメソッドをクラスメソッドと呼びましたが、このような
+# メソッドは厳密にいうとクラスオブジェクトの特異メソッドを定義していることになります。
+# 特異メソッドについては7.10.8　クラスメソッドは特異メソッドの一種の頃で詳しく説明します
+#
+# メソッド名の表記法について
+#
+# Rubyではインスタンスメソッドを表す場合にクラス名#メソッド名
+# クラスメソッドを表す場合にクラス名.メソッド名　または　クラス名::メソッド名と書きます
 #
 #
 #
