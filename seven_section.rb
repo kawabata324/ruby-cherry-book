@@ -657,5 +657,4 @@ Product.default_price
 free_item = Product.new('free_item')
 free_item.default_price
 
-# 7.4 例題　改札機プログラムの作成
-#
+
