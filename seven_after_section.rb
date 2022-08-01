@@ -126,7 +126,6 @@
 # foo = Foo.new
 # foo.baz
 
-
 # このようなものはerrorになる
 # ただクラス構文の直下とクラスメソッドはselfがどちらもクラス地震になるので呼び出すことは可能
 #
@@ -136,9 +135,38 @@
 # 極端な例だがクラス構文の直下に繰り返し処理を書いても実行可能
 #
 
-class Foo
-  # クラス定義が読み込まれたタイミングでHello!を３回出力する
-  3.times do
-    puts "Hello!"
+# class Foo
+#   # クラス定義が読み込まれたタイミングでHello!を３回出力する
+#   3.times do
+#     puts "Hello!"
+#   end
+# end
+
+# クラスメソッドをインスタンスメソッドの内部から呼びさす場合は次のように書きます
+# クラス名.メソッド名
+# 以下はインスタンスメソッドからクラスメソッドを呼び出すコード例
+#
+class Product
+  attr_reader :name, :price
+
+  def initialize(name, price)
+    @name = name
+    @price = price
+  end
+
+  #金額を整形するクラスメソッド
+  def self.format_price(price)
+    "#{price}円"
+  end
+
+  def to_s
+    # インスタンスメソッドからクラスメソッドを呼び出す
+    # formatted_price = Product.format_price(price)
+    # このようにもかける
+    formatted_price = self.class.format_price(price)
+    "name: #{name}, price: #{formatted_price}"
   end
 end
+
+product = Product.new('A great movie', 1000)
+puts product.to_s
