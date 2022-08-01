@@ -44,37 +44,101 @@
 #
 # name= の場合は話が異なる
 
-class User
-  attr_accessor :name
+# class User
+#   attr_accessor :name
+#
+#   def initialize(name)
+#     @name = name
+#   end
+#
+#   def rename_to_bob
+#     # selfなしでname= メソッドを呼ぶ(?)
+#     # ローカル変数に文字列を代入したように見えるため失敗する
+#     name = 'Bob'
+#   end
+#
+#   def rename_to_carol
+#     # self付きでname=　メソッドを呼ぶ
+#     self.name = 'Carol'
+#   end
+#
+#   def rename_to_dave
+#     # インスタンス変数を書き換える
+#     @name = 'Dave'
+#   end
+# end
+#
+# user = User.new('Alice')
+#
+# user.rename_to_bob
+# puts user.name
+#
+# user.rename_to_carol
+# puts user.name
+#
+# user.rename_to_dave
+# puts user.name
+#
+#
+#
+# 7.5.2 クラスメソッドの内部やクラス構文直下のself
+#
+# クラス定義ないに登場するselfは場所によってそのクラスのインスタンス自身を表したり、
+# クラス自身を表したりします。
+#
+#
+# class Foo
+#   # 注意このputsはクラス定義の読み込み時に呼び出される
+#   puts "クラス直下のself: #{self}"
+#
+#   def self.bar
+#     puts "クラスメソッド内のself: #{self}"
+#   end
+#
+#   def baz
+#     puts "インスタンスメソッド内のself: #{self}"
+#   end
+# end
+#
+# Foo.bar
+# foo = Foo.new
+# foo.baz
+#
 
-  def initialize(name)
-    @name = name
-  end
+# class Foo
+#   # 注意このputsはクラス定義の読み込み時に呼び出される
+#   puts "クラス直下のself: #{self}"
+#
+#   def self.bar
+#     puts "クラスメソッド内のself: #{self}"
+#     # クラスメソッドからインスタンスメソッドのbazを呼び出す
+#     self.baz
+#   end
+#
+#   def baz
+#     puts "インスタンスメソッド内のself: #{self}"
+#     # インスタンスメソッドからクラスメソッドのbarを呼び出す
+#     self.bar
+#   end
+# end
+#
+# Foo.bar
+# foo = Foo.new
+# foo.baz
 
-  def rename_to_bob
-    # selfなしでname= メソッドを呼ぶ(?)
-    # ローカル変数に文字列を代入したように見えるため失敗する
-    name = 'Bob'
-  end
 
-  def rename_to_carol
-    # self付きでname=　メソッドを呼ぶ
-    self.name = 'Carol'
-  end
+# このようなものはerrorになる
+# ただクラス構文の直下とクラスメソッドはselfがどちらもクラス地震になるので呼び出すことは可能
+#
+# 他のプログラミング言語の経験者からするとクラス構文の直下で直接クラスメソッドが呼び出せるということ
+# 自体に驚くかもしれません。しかしRubyの場合、クラス定義自体も上から順番に実行されるプログラミングになっているので
+# クラス構文お直下でクラスメソッドを呼び出せる
+# 極端な例だがクラス構文の直下に繰り返し処理を書いても実行可能
+#
 
-  def rename_to_dave
-    # インスタンス変数を書き換える
-    @name = 'Dave'
+class Foo
+  # クラス定義が読み込まれたタイミングでHello!を３回出力する
+  3.times do
+    puts "Hello!"
   end
 end
-
-user = User.new('Alice')
-
-user.rename_to_bob
-puts user.name
-
-user.rename_to_carol
-puts user.name
-
-user.rename_to_dave
-puts user.name
