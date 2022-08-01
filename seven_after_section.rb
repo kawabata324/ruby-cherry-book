@@ -146,27 +146,57 @@
 # クラス名.メソッド名
 # 以下はインスタンスメソッドからクラスメソッドを呼び出すコード例
 #
-class Product
-  attr_reader :name, :price
+# class Product
+#   attr_reader :name, :price
+#
+#   def initialize(name, price)
+#     @name = name
+#     @price = price
+#   end
+#
+#   #金額を整形するクラスメソッド
+#   def self.format_price(price)
+#     "#{price}円"
+#   end
+#
+#   def to_s
+#     # インスタンスメソッドからクラスメソッドを呼び出す
+#     # formatted_price = Product.format_price(price)
+#     # このようにもかける
+#     formatted_price = self.class.format_price(price)
+#     "name: #{name}, price: #{formatted_price}"
+#   end
+# end
+#
+# product = Product.new('A great movie', 1000)
+# puts product.to_s
+#
+#
+#
+# クラスの継承
+# オブジェクト指向プログラミングと聞いて真っ先に思い浮かべるのは継承だ。という人もおそらく多い
+# まず、クラスの継承に関する用語を簡単に整理する。DVDクラスがProductクラスを継承する時、
+# ProductクラスのことをDVDクラスのスーパークラス（または親クラス）と呼びます
+# Productクラスから見るとDVDクラスはProductクラスのサブクラスと呼びます
+#
+# クラス図の多くはスーパークラスを上にサブクラスを下に配置し、サブクラスからスーパークラスへ向かって矢印を伸ばすことで
+# サブクラスがスーパークラスを継承していることを表します
+# 継承は時々「スーパークラスの機能を全部引き継ぐための仕組み」と誤解される。そのように考えると扱いづらいクラス
+# 継承を使いたいと思った時は機能ではなく、性質や概念の共通点に着目してください
+# 性質や概念が共通化しているかどうかを判断しり方法は
+# サブクラスはスーパークラスの一種である
+# と声に出して読んだ時に違和感がないかを確かめることです　これは is-aの関係と呼ばれます。
+# 例えば販売管理を行うシステムで、商品クラスがスーパークラス、DVDがサブクラスだった場合
+# DVDは商品の一種である DVD is a product
+#
+# 声に出して読んでも違和感がありません。こういうケースは適切な継承関係である可能性が高いです。
+# またサブクラスはスーパークラスの性質に特化したもので反対にスーパークラスはサブクラスの性質を汎化したもの。
+# 特化とはより細かく具体的になることで
+# 汎化とはより大雑把に抽象化されること
+#
+#
+# DVDと商品を比較した場合、DVDの方が単に商品と呼んだ時よりも性質や概念が具体的になっています。
+# 逆に商品はDVDに比べると中身が曖昧で売るための何かということはわかりますが、具体的にいうとそれって何
+# とんあてしまう。つまり商品はDVDよりも抽象的な概念になっている。
+# 特化と汎化の関係
 
-  def initialize(name, price)
-    @name = name
-    @price = price
-  end
-
-  #金額を整形するクラスメソッド
-  def self.format_price(price)
-    "#{price}円"
-  end
-
-  def to_s
-    # インスタンスメソッドからクラスメソッドを呼び出す
-    # formatted_price = Product.format_price(price)
-    # このようにもかける
-    formatted_price = self.class.format_price(price)
-    "name: #{name}, price: #{formatted_price}"
-  end
-end
-
-product = Product.new('A great movie', 1000)
-puts product.to_s
