@@ -6,6 +6,44 @@
 #
 #
 
+# class User
+#   attr_accessor :name
+#
+#   def initialize(name)
+#     @name = name
+#   end
+#
+#   def hello
+#     # selfなしでnameメソッドを呼ぶ
+#     puts "Hello, I am #{name}"
+#   end
+#
+#   def hi
+#     # self付きでnameメソッドを呼ぶ
+#     puts "Hello, I am #{self.name}"
+#   end
+#
+#   def my_name
+#     # 直接インスタンス変数の@nameにアクセスする
+#     puts "My name is #{@name}"
+#   end
+# end
+#
+# user = User.new('Alice')
+# user.hello
+# user.hi
+# user.my_name
+
+# 上のコードではご覧の通り,nameもself.nameも＠nameも同じ文字列"Alice"を返します。
+# この場合はどれも同じ結果になるのでこれが正解と一つを選ぶことはできません
+# selfをつけたり、つけなかったりそのままインスタンス変数にアクセスしたり、人によって書き方が異なる
+#
+#
+#
+# 7.5.1 selfのつけ忘れで不具合が発生するケース
+#
+# name= の場合は話が異なる
+
 class User
   attr_accessor :name
 
@@ -13,29 +51,30 @@ class User
     @name = name
   end
 
-  def hello
-    # selfなしでnameメソッドを呼ぶ
-    puts "Hello, I am #{name}"
+  def rename_to_bob
+    # selfなしでname= メソッドを呼ぶ(?)
+    # ローカル変数に文字列を代入したように見えるため失敗する
+    name = 'Bob'
   end
 
-  def hi
-    # self付きでnameメソッドを呼ぶ
-    puts "Hello, I am #{self.name}"
+  def rename_to_carol
+    # self付きでname=　メソッドを呼ぶ
+    self.name = 'Carol'
   end
 
-  def my_name
-    # 直接インスタンス変数の@nameにアクセスする
-    puts "My name is #{@name}"
+  def rename_to_dave
+    # インスタンス変数を書き換える
+    @name = 'Dave'
   end
 end
 
 user = User.new('Alice')
-user.hello
-user.hi
-user.my_name
 
-# 上のコードではご覧の通り,nameもself.nameも＠nameも同じ文字列"Alice"を返します。
-# この場合はどれも同じ結果になるのでこれが正解と一つを選ぶことはできません
-# selfをつけたり、つけなかったりそのままインスタンス変数にアクセスしたり、人によって書き方が異なる
-#
-#
+user.rename_to_bob
+puts user.name
+
+user.rename_to_carol
+puts user.name
+
+user.rename_to_dave
+puts user.name
