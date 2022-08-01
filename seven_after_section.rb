@@ -213,3 +213,116 @@
 # ObjectクラスとBasicObjectクラスを区別する必要があるのは特殊な用途に限られるので、通常はObjectクラスが頂点と考えて差し支えない
 #
 #
+#
+# 7.6.2 デフォルトで継承されるObjectクラス
+#
+# 継承元を指定せずに作成したクラスはデフォルトでObjectクラスを継承しています
+#
+
+# class User
+# end
+# # このクラスは何一つ定義していませんが to_s メソッドやnil?　メソッドを呼び出すことができます
+# # user = User.new
+# # puts user.to_s
+# # puts user.nil?
+# # puts User.superclass
+#
+# # このようにするとObjectクラスから継承したメソッドの一覧が確認できる
+# # pp user.methods.sort
+#
+# # 7.6.3 オブジェクトのクラスの確認する
+#
+# user = User.new
+# puts user.class
+# # instance_of? メソッドを使っても調べることができます
+# #
+# # # userはUserクラスのインスタンスかどうか?
+# # puts user.instance_of?(User)
+# # # userはStringクラスのインスタンスかどうか?
+# # puts user.instance_of?(String)
+#
+# # 継承関係があるかどうかは is_a? kind_of? メソッドを使用する
+# puts user.is_a?(Object)
+# puts user.kind_of?(BasicObject)
+# puts user.is_a?(User)
+#
+# puts user.is_a?(String)
+#
+# 7.6.4 他のクラスを継承したクラスを作る
+#
+# 独自のクラスを定義する際はObjectクラス以外のクラスを継承することもできます
+#
+
+class Product
+  attr_reader :name, :price
+
+  def initialize(name, price)
+    @name = name
+    @price = price
+  end
+end
+
+# class DVD < Product
+#   attr_reader :running_time
+#
+#   def initialize(name, price, running_time)
+#     # superを使うと親クラスの同名メソッドを呼び出すことができる
+#     super(name, price)
+#     @running_time = running_time
+#   end
+# end
+#
+# dvd = DVD.new('A great movie', 1000, 120)
+# puts dvd.name
+# puts dvd.price
+# puts dvd.running_time
+#
+#
+#
+
+# class DVD < Product
+#   def initialize(name, price)
+#     # superを使うと親クラスの同名メソッドを呼び出すことができる
+#     # 引数の数が同じであれば省略できる
+#     super
+#   end
+# end
+#
+# dvd = DVD.new('A great movie', 1000)
+# puts dvd.name
+# puts dvd.price
+#
+#
+
+# class DVD < Product
+#   def initialize()
+#     # superを使うと親クラスの同名メソッドを呼び出すことができる
+#     # 引数の数が同じであれば省略できる
+#     # 引数0を示すがこの場合数が合わないのでエラーになる
+#     super()
+#   end
+# end
+#
+# dvd = DVD.new
+# puts dvd.name
+# puts dvd.price
+
+class DVD < Product
+  # サブクラスで特別な処理をしないなら同名メソッドを定義したりsuperを呼んだりする必要はない
+  def initialize(name, price)
+    # superを使うと親クラスの同名メソッドを呼び出すことができる
+    # 引数の数が同じであれば省略できる
+    super
+  end
+end
+
+dvd = DVD.new('A great movie', 1000)
+puts dvd.name
+puts dvd.price
+
+# なおここではinitializeメソッドでsuperを使いましたが他のメソッドでも使える
+#
+#
+#
+#
+#
