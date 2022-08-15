@@ -307,22 +307,62 @@ end
 # puts dvd.name
 # puts dvd.price
 
-class DVD < Product
-  # サブクラスで特別な処理をしないなら同名メソッドを定義したりsuperを呼んだりする必要はない
-  def initialize(name, price)
-    # superを使うと親クラスの同名メソッドを呼び出すことができる
-    # 引数の数が同じであれば省略できる
-    super
-  end
-end
-
-dvd = DVD.new('A great movie', 1000)
-puts dvd.name
-puts dvd.price
+# class DVD < Product
+#   # サブクラスで特別な処理をしないなら同名メソッドを定義したりsuperを呼んだりする必要はない
+#   def initialize(name, price)
+#     # superを使うと親クラスの同名メソッドを呼び出すことができる
+#     # 引数の数が同じであれば省略できる
+#     super
+#   end
+# end
+#
+# dvd = DVD.new('A great movie', 1000)
+# puts dvd.name
+# puts dvd.price
 
 # なおここではinitializeメソッドでsuperを使いましたが他のメソッドでも使える
 #
 #
 #
 #
+#7.6.6 メソッドのオーバーライド
 #
+# サブクラスではスーパークラスと同名のメソッド定義することで、スーパークラスの処理を上書きすることができる。
+#
+# これをメソッドのオーバーライドと言います。
+# 先ほど説明したDVDクラスのinitializeメソッドもオーバーライドの一種ですが、ここではinitialize以外のメソッドを使ってオーバーライドの仕組みを説明します
+# ここで取り上げるのは, to_sメソッドです。　オブジェクトの内容を文字列にして返すメソッドです。
+# このメソッドはObjectクラスで定義されているので、全てのオブジェクトでto_sメソッドを呼び出すことができる
+#
+#
+class Product
+  attr_reader :name, :price
+
+  def initialize(name, price)
+    @name = name
+    @price = price
+  end
+
+  def to_s
+    "name: #{name}, price: #{price}"
+  end
+end
+
+class DVD < Product
+  attr_reader :running_time
+
+  def initialize(name, price, running_time)
+    super(name,price)
+    @running_time = running_time
+  end
+
+  def to_s
+    "#{super}, running_time: #{running_time}"
+  end
+end
+
+product = Product.new('A great Movie', 1000)
+puts product.to_s
+
+dvd = DVD.new('An awesome film', 3000, 120)
+puts dvd.to_s
