@@ -440,3 +440,27 @@ end
 #
 # greet(name: 'Alice', friend: 'Bob')
 
+# メソッドの可視性
+#
+# Ruby メソッドには以下のような3つの可視性がある
+#
+#
+# public
+# protected
+# private
+#
+#
+# 7.7.1 public メソッド
+#
+# public メソッドはクラスの外部からでも自由に呼び出せるメソッド
+# initializeメソッド以外のインスタンスメソッドはデフォルトでpublicメソッドになります
+
+# class User
+#   # デフォルトはpublicメソッド
+#   def hello
+#     puts 'Hello!'
+#   end
+# end
+# user = User.new
+# # public メソッドなのでクラスの外部から呼び出せる
+# user.hello
