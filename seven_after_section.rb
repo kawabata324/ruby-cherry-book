@@ -335,34 +335,108 @@ end
 # このメソッドはObjectクラスで定義されているので、全てのオブジェクトでto_sメソッドを呼び出すことができる
 #
 #
-class Product
-  attr_reader :name, :price
+# class Product
+#   attr_reader :name, :price
+#
+#   def initialize(name, price)
+#     @name = name
+#     @price = price
+#   end
+#
+#   def to_s
+#     "name: #{name}, price: #{price}"
+#   end
+# end
+#
+# class DVD < Product
+#   attr_reader :running_time
+#
+#   def initialize(name, price, running_time)
+#     super(name,price)
+#     @running_time = running_time
+#   end
+#
+#   def to_s
+#     "#{super}, running_time: #{running_time}"
+#   end
+# end
+#
+# product = Product.new('A great Movie', 1000)
+# puts product.to_s
+#
+# dvd = DVD.new('An awesome film', 3000, 120)
+# puts dvd.to_s
 
-  def initialize(name, price)
-    @name = name
-    @price = price
-  end
+# 7.6.7 クラスメソッドの継承
+#
+# クラスを継承すると、クラスメソッドも継承されます。
 
-  def to_s
-    "name: #{name}, price: #{price}"
-  end
-end
+# class Foo
+#   def self.hello
+#     'hello'
+#   end
+# end
+#
+# class Bar < Foo
+# end
+#
+# puts Foo.hello
+#
+# puts Bar.hello
+#
+#
+# 引数名がつかない *や **
+#
+# gem(外部ライブラリ)のソーズコードを見ていると、次のように引数が(*)だけのメソッド定義を見かけることがあります
 
-class DVD < Product
-  attr_reader :running_time
+# class DVD < Product
+#   def initialize(*)
+#     # 省略
+#   end
+# end
 
-  def initialize(name, price, running_time)
-    super(name,price)
-    @running_time = running_time
-  end
+#
+# * は可変町引数を表す記号です([4.7.7 メソッドの可変町引数の項を参照])
+# 普通は *argsのように引数名をつけるはずですが、ここではあえて省略しています。
+#
+# 意図１　
+# メソッドないでsuperキーワードが使われていた場合は、このメソッドでは引数は使わないが、superメソッド（スーパークラスのメソッド）で必要になるので渡された引数をそのままsuperメソッドに渡すという意味
+#
 
-  def to_s
-    "#{super}, running_time: #{running_time}"
-  end
-end
+# class Product
+#   def initialize(name, price)
+#     puts "name: #{name}, price: #{price}"
+#   end
+# end
+#
+# class DVD < Product
+#   # initialize(name, price)としてもいいがこのメソッドでは引数を使わないので
+#   # 可変長引数として一旦任意の引数を受け取り、それをそのままsuperメソッドに渡す
+#   def initialize(...)
+#     super
+#     #その他の処理
+#   end
+# end
+#
+# DVD.new('A great movie', 1000)
+#
+#
+# 意図２
+# 引数のない * や ** があっても、メソッド内でsuperキーワードが使われていない場合は、「余分に渡された引数を無視する)という意味
+#
+#
 
-product = Product.new('A great Movie', 1000)
-puts product.to_s
+# def add(a, b, *)
+#   puts a + b
+# end
+#
+# # 最初に渡された二つの引数のみを使い、他の引数は無視する
+# add(1,2,3,5,6)
+#
+# # name以外のキーワード引数は無視する
+# def greet(name:, **)
+#   puts "Hello! #{name}"
+# end
+#
+# greet(name: 'Alice', friend: 'Bob')
 
-dvd = DVD.new('An awesome film', 3000, 120)
-puts dvd.to_s
