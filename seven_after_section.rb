@@ -464,3 +464,44 @@ end
 # user = User.new
 # # public メソッドなのでクラスの外部から呼び出せる
 # user.hello
+#
+#
+# 7.7.2 private メソッド
+#
+# 次にprotectedメソッドはいったん飛ばして、privateメソッドの説明する
+# publicメソッドは外部に公開されるメソッドでしたが、privateメソッドは外部に公開されないメソッドです。
+# すなわちクラスの外からは呼び出せず、クラスの内部のみで使えるメソッド、レシーバがselfに限定されるメソッド
+# となります。クラスないでprivateキーワードを書くと、そこから下で定義されたメソッドはprivateメソッドになります
+#
+#
+# class User
+#
+#   # ここから下で定義されたメソッドはprivate
+#   private
+#
+#     def hello
+#       puts 'Hello'
+#     end
+# end
+#
+# user = User.new
+# # privateメソッドなのでクラスの外部から呼び出せない
+user.hello
+#  private method `hello' called for #<User:0x0000000127832d18>
+#
+# Ruby 2.6までは privateメソッドは明示的にレシーバを指定できないというルールが合ったため、クラスの内部で合ってもself
+# 付きで呼び出すことができませんでした。しかし、Ruby2.7 以降はselfをつけてprivateメソッドを呼び出すことが許容されました。
+#
+
+# class User
+#   def hello
+#     # Ruby 2.6以前は selfをつけると Error
+#     # Ruby　2.7以降は selfを
+#   end
+#
+#   private
+#
+#     def name
+#       'Alice'
+#     end
+# end
