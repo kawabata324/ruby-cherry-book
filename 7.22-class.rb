@@ -32,17 +32,17 @@
 
 # 変更可能なfirst_name属性を持つようなUserクラスを作成する
 
-class User
-  attr_accessor :first_name
-
-  def initialize(first_name)
-    @first_name = first_name
-  end
-end
-
-kawabata = User.new('Kawabata')
-kawabata.first_name = '川端'
-
-puts kawabata.first_name
+# class User
+#   attr_accessor :first_name
+#
+#   def initialize(first_name)
+#     @first_name = first_name
+#   end
+# end
+#
+# kawabata = User.new('Kawabata')
+# kawabata.first_name = '川端'
+#
+# puts kawabata.first_name
 # 戻り値
 # => 川端
