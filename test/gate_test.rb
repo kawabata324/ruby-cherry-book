@@ -3,25 +3,43 @@ require_relative '../lib/gate'
 require_relative '../lib/ticket'
 
 class GateTest < Minitest::Test
-  def test_from_umeda_to_mikuni_charge_missing
-    # 改札機オブジェクトの作成
-    umeda = Gate.new(:umeda)
-    mikuni = Gate.new(:mikuni)
+  def setup
+    @umeda = Gate.new(:umeda)
+    @juso = Gate.new(:juso)
+    @mikuni = Gate.new(:mikuni)
 
-    # 160円の切符を購入して梅田で乗車し、三国で降りる
-    ticket = Ticket.new(160)
-    umeda.enter(ticket)
-    assert !mikuni.exit(ticket) #=> false
+    @ticket_160 = Ticket.new(160)
+    @ticket_190 = Ticket.new(190)
+  end
+
+  def test_from_umeda_to_juso_charge_enough
+    # 160円の切符を購入して梅田で乗車し、十三で降りる true
+    ticket = @ticket_160
+
+    @umeda.enter(ticket)
+    assert @juso.exit(ticket)
+  end
+
+  def test_from_umeda_to_mikuni_charge_missing
+    # 160円の切符を購入して梅田で乗車し、三国で降りる false
+    ticket = @ticket_160
+
+    @umeda.enter(ticket)
+    assert !@mikuni.exit(ticket)
   end
 
   def test_from_umeda_to_mikuni_charge_enough
-    # 改札機オブジェクトの作成
-    umeda = Gate.new(:umeda)
-    mikuni = Gate.new(:mikuni)
+    # 190円の切符を購入して梅田で乗車し、三国で降りる
+    ticket = @ticket_190
 
-    # 180円の切符を購入して梅田で乗車し、三国で降りる
-    ticket = Ticket.new(180)
-    umeda.enter(ticket)
-    assert mikuni.exit(ticket) #=> true
+    @umeda.enter(ticket)
+    assert @mikuni.exit(ticket)
+  end
+
+  def test_from_juso_to_mikuni_charge_enough
+    ticket = @ticket_160
+
+    @juso.enter(ticket)
+    assert @mikuni.exit(ticket)
   end
 end
