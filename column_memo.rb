@@ -160,26 +160,26 @@
 #
 #
 
-class Product
-  attr_reader :name, :price
-
-  def initialize(name, price)
-    @name = name
-    @price = price
-  end
-
-  def self.price_format(price)
-    "#{price}円"
-  end
-
-  def describe_product
-    puts "name: #{@name} price: #{self.class.price_format(@price)}"
-  end
-end
-
-
-
-product1 = Product.new('nice movie', 1300)
-product1.describe_product
+# class Product
+#   attr_reader :name, :price
+#
+#   def initialize(name, price)
+#     @name = name
+#     @price = price
+#   end
+#
+#   def self.price_format(price)
+#     "#{price}円"
+#   end
+#
+#   def describe_product
+#     puts "name: #{@name} price: #{self.class.price_format(@price)}"
+#   end
+# end
+#
+#
+#
+# product1 = Product.new('nice movie', 1300)
+# product1.describe_product
 
 # => name: nice movie price: 1300円
