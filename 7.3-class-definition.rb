@@ -269,3 +269,14 @@ end
 #
 # apex = Product.new('Apex')
 # puts apex.price
+#
+#
+#
+
+# class User
+#   attr_accessor :name
+# end
+#
+# user1 = User.new
+# user1.name = 'Kawabata'
+# puts user1.name

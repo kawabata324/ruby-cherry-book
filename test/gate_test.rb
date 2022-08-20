@@ -13,4 +13,15 @@ class GateTest < Minitest::Test
     umeda.enter(ticket)
     assert !mikuni.exit(ticket) #=> false
   end
+
+  def test_from_umeda_to_mikuni_charge_enough
+    # 改札機オブジェクトの作成
+    umeda = Gate.new(:umeda)
+    mikuni = Gate.new(:mikuni)
+
+    # 180円の切符を購入して梅田で乗車し、三国で降りる
+    ticket = Ticket.new(180)
+    umeda.enter(ticket)
+    assert mikuni.exit(ticket) #=> true
+  end
 end
