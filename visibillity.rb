@@ -197,22 +197,22 @@
 #
 #
 
-class User
-  protected attr_reader :name, :weight
-
-  def initialize(name, weight)
-    @name = name
-    @weight = weight
-  end
-
-  # 自分がother_userよりも重い場合は true
-  def heavier_than?(other_user)
-    other_user.weight < @weight
-  end
-end
-
-user1 = User.new('Alice', 50)
-user2 = User.new('Kawabata', 60)
+# class User
+#   protected attr_reader :name, :weight
 #
-puts user1.heavier_than?(user2)
+#   def initialize(name, weight)
+#     @name = name
+#     @weight = weight
+#   end
+#
+#   # 自分がother_userよりも重い場合は true
+#   def heavier_than?(other_user)
+#     other_user.weight < @weight
+#   end
+# end
+#
+# user1 = User.new('Alice', 50)
+# user2 = User.new('Kawabata', 60)
+# #
+# puts user1.heavier_than?(user2)
 # => false
