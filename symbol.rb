@@ -14,16 +14,17 @@
 # 文字列より高速
 # => "yen"
 
-# タスクの状態をシンボルで管理する
-status = :done
+# # タスクの状態をシンボルで管理する
+# status = :done
+#
+# case status
+# when :todo
+#   p 'これからやる'
+# when :doing
+#   p '今やっています'
+# when :done
+#   p 'もう終わりました'
+# end
+#
+# # => "もう終わりました"
 
-case status
-when :todo
-  p 'これからやる'
-when :doing
-  p '今やっています'
-when :done
-  p 'もう終わりました'
-end
-
-# => "もう終わりました"
