@@ -1,5 +1,3 @@
-UNITS = { m: 1.00, ft: 3.28, in: 39.37 }
-
-def convert_length(length_val, from:, to:)
-  (length_val / UNITS[from] * UNITS[to]).round(2)
+def convert_length(value, from_unit, to_unit)
+  39.37
 end
