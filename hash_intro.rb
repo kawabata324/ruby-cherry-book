@@ -67,5 +67,15 @@
 # => nil
 # => {"japan"=>"yen", "us"=>"dollar"}
 
-currencies = { 'japan' => 'yen', 'us' => 'dollar' }
-p currencies.delete('brazil') {|key| "Not Found: #{key}"}
+# currencies = { 'japan' => 'yen', 'us' => 'dollar' }
+# p currencies.delete('brazil') {|key| "Not Found: #{key}"}
+
+# def buy_burger(menu, drink:, potato:)
+#
+#   # キーワード引数もメソッドの引数の一つなのでmenuと同様にdrinkと書く
+#   if menu & drink & potato
+#
+#     #下記のように書いてしまうと新たにただのシンボルで定義したことになるので注意する
+#   elsif :drink
+#   end
+# end
