@@ -142,39 +142,111 @@
 # モジュールにログ出力用のメソッドを定義し、クラスでそのモジュールをincludeするとモジュールで定義したメソッドがインスタンスメソッドとして呼び出せるようになる
 
 # ログ出力用のメソッドを定義するモジュール
-module Loggable
-  private
-    def log(text)
-      puts "[LOG] #{text}"
-    end
-end
-
-class Product
-  include Loggable
-
-  def title
-    log 'title is called'
-    log 'A great movie'
-  end
-end
-
-class User
-  include Loggable
-
-  def name
-    log "name is called"
-    log "Alice"
-  end
-end
-
-product = Product.new
-product.title
-
-user = User.new
-user.name
+# module Loggable
+#   private
+#     def log(text)
+#       puts "[LOG] #{text}"
+#     end
+# end
+#
+# class Product
+#   include Loggable
+#
+#   def title
+#     log 'title is called'
+#     log 'A great movie'
+#   end
+# end
+#
+# class User
+#   include Loggable
+#
+#   def name
+#     log "name is called"
+#     log "Alice"
+#   end
+# end
+#
+# product = Product.new
+# product.title
+#
+# user = User.new
+# user.name
 
 # このようにモジュールをクラスにincludeすることで
 # 継承関係に気にすることなく機能を追加することに成功しました
 # このようにincludeして機能を追加することをmixinと言います
 # mixin先は基本的にどのようなクラスでもOKです
 # このようにRubyはmixinを利用することで多重継承ににた仕組みを実現しています
+
+# include先のmoduleを使うモジュール
+
+
+# module Taggable
+#   def price_tag
+#     # price methodは既にinclude先で定義されているはずという前提
+#     puts "#{self.price}円"
+#   end
+# end
+#
+# class Product
+#   include Taggable
+#
+#   def price
+#     1000
+#   end
+# end
+#
+# product = Product.new
+#
+# product.price_tag
+# => 1000円
+
+
+# moduleをextendする
+
+module Loggable
+  def log(text)
+    puts "[LOG]#{text}"
+  end
+end
+
+class Product
+  # Loggableモジュールをクラスメソッドとして追加する
+
+  extend Loggable
+
+  def self.create_product(names)
+    log('create_product is called')
+  end
+
+  # log methodをクラスの直下で呼び出すことも可能
+
+  log ("Define Product Class")
+end
+
+# クラスメソッド経由でlog methodが呼ばれる
+Product.create_product([])
+# => [LOG]create_product is called
+
+# privateにしていないので直接呼び出すことも可能
+
+Product.log("Hello")
+#=> [LOG]Hello
+
+
+
+# includeやextendはクラスの外でも呼び出すことが可能
+# Product.include Loggable
+# Product.extend Loggable
+
+# 例題：　rainbow methodの作成
+
+# rainbow methodは　特定のクラスだけでなくさまざまなクラスで呼び出せるようにする必要がある
+
+# Rainbowableという名前でmoduleを作成して、それをincludeする？
+# String.include Rainbowable
+# Array.include Rainbowable
+# class String
+#  include Rainbowable
+# end
